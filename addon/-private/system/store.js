@@ -920,7 +920,7 @@ Store = Service.extend({
       // will once again convert the records to snapshots for adapter.findMany()
       let snapshots = new Array(totalItems);
       for (let i = 0; i < totalItems; i++) {
-        snapshots[i] = internalModels[i].createSnapshot();
+        snapshots[i] = internalModels[i].createSnapshot(pendingFetchItems[i].options);
       }
 
       let groups = adapter.groupRecordsForFindMany(this, snapshots);
@@ -935,6 +935,7 @@ Store = Service.extend({
           var internalModel = group[j]._internalModel;
 
           groupedInternalModels[j] = internalModel;
+          groupedInternalModels[j].snapshot = group[j];
           ids[j] = internalModel.id;
         }
 

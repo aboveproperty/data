@@ -872,7 +872,7 @@ const RESTAdapter = Adapter.extend(BuildURLMixin, {
       expandedURL[expandedURL.length - 1] = lastSegment.substring(0, lastSegment.length - id.length - 1);
     }
 
-    return expandedURL.join('/');
+    return expandedURL.join('/') + (snapshot.include ? `?include=${snapshot.include}` : "");
   },
 
   // http://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers

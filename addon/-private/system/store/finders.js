@@ -50,6 +50,9 @@ export function _find(adapter, store, modelClass, id, internalModel, options) {
 
 export function _findMany(adapter, store, modelName, ids, internalModels) {
   let snapshots = A(internalModels).invoke('createSnapshot');
+  if (internalModels[0].snapshot && internalModels[0].snapshot.include) {
+    snapshots.include = internalModels[0].snapshot.include;
+  }
   let modelClass = store.modelFor(modelName); // `adapter.findMany` gets the modelClass still
   let promise = adapter.findMany(store, modelClass, ids, snapshots);
   let label = `DS: Handle Adapter#findMany of '${modelName}'`;
