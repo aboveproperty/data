@@ -645,7 +645,10 @@ const RESTAdapter = Adapter.extend(BuildURLMixin, {
       return this._makeRequest(request);
     } else {
       let url = this.buildURL(type.modelName, ids, snapshots, 'findMany');
-      return this.ajax(url, 'GET', { data: { ids: ids } });
+      let query = this.buildQuery(snapshots);
+      query.ids = ids;
+
+      return this.ajax(url, 'GET', { data: query });
     }
   },
 
